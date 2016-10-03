@@ -12,7 +12,8 @@ public class InOutIntentService extends IntentService {
 
     private static final String TAG = "InOutIntentService";
     private static final String EXTRA_OPERATION_TYPE = "operationType";
-    private static final String EXTRA_REPORT_ID = "reportID";
+    private static final String EXTRA_IO_NO = "ioNo";
+    private static final String EXTRA_CTRL_VALUE = "ctrlValue";
 
     private ResultReceiver receiver;
 
@@ -21,12 +22,15 @@ public class InOutIntentService extends IntentService {
     private InOutService inOutService;
 
 
-    public static Intent newIntent(Context context, int operationType, String reportID) {
+    public static Intent newIntent(Context context, int operationType, int ioNo, boolean ctrlValue) {
+
         Intent intent = new Intent(context, InOutIntentService.class);
 
         intent.putExtra(EXTRA_OPERATION_TYPE, operationType);
 
-        intent.putExtra(EXTRA_REPORT_ID, reportID);
+        intent.putExtra(EXTRA_IO_NO, ioNo);
+
+        intent.putExtra(EXTRA_CTRL_VALUE, ctrlValue);
 
         return intent;
     }
@@ -50,7 +54,9 @@ public class InOutIntentService extends IntentService {
 
         int operationType = intent.getIntExtra(EXTRA_OPERATION_TYPE, 0);
 
-        String reportID = intent.getStringExtra(EXTRA_REPORT_ID);
+        int ioNo = intent.getIntExtra(EXTRA_OPERATION_TYPE, 0);
+
+        boolean ctrlValue = intent.getBooleanExtra(EXTRA_CTRL_VALUE, false);
 
         String msg = "";
 
@@ -65,15 +71,28 @@ public class InOutIntentService extends IntentService {
         String key = "";
 
         switch (operationType) {
+
             case Constants.OUTPUT_SET:
+
+                value = inOutService.controlOutput(ioNo, ctrlValue);
+
+                key = "OUTPUT_" + ioNo;
 
                 break;
             case Constants.OUTPUT_STATUS_REFRESH:
 
+                value = inOutService.getOutputStatus(ioNo);
+
+                key = "OUTPUT_" + ioNo;
+
                 break;
             case Constants.INPUT_STATUS_REFRESH:
-            default:
 
+                value = inOutService.getInputStatus(ioNo);
+
+                key = "INPUT_" + ioNo;
+
+            default:
         }
 
         deliverResultToReceiver(Constants.SUCCESS_RESULT, key, value);

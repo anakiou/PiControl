@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2016 . Anargyros Kiourkos.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and limitations under the License.
+  -->
+
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#125688</color>
+    <color name="colorPrimaryDark">#125688</color>
+    <color name="colorAccent">#c8e8ff</color>
+    <color name="colorGrey">#E0E0E0</color>
+    <color name="colorNew">#1B5E20</color>
+    <color name="colorAccepted">#01579B</color>
+    <color name="colorInProgress">#F44336</color>
+    <color name="colorRejected">#795548</color>
+    <color name="colorClosed">#424242</color>
+    <color name="colorStatusFont">#FAFAFA</color>
+    <color name="red">#F44336</color>
+    <color name="dark_red">#C3352B</color>
+    <color name="gray">#607D8B</color>
+    <color name="soothing_blue">#0083BF</color>
+    <color name="dark_blue">#005A8A</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorState0">#01A368</color>
+    <color name="colorState1">#3b3bd4</color>
+    <color name="colorState2">#8E0000</color>
+    <color name="colorState3">#FF00FF</color>
+    <color name="colorState4">#00FFFF</color>
+    <color name="colorState5">#315BA1</color>
+    <color name="colorState6">#FF681F</color>
+    <color name="colorState7">#FF007F</color>
+    <color name="colorState8">#240A40</color>
+    <color name="colorState9">#FFFF00</color>
+    <color name="colorStateUnknown">#808080</color>
 </resources>

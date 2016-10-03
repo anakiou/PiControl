@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PiControl</string>
+    <string name="outputs">Outputs</string>
+    <string name="inputs">Inputs</string>
+    <string name="edit_names">Edit names</string>
+    <string name="network_required_msg">Data Connection Required</string>
 </resources>
