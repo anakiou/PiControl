@@ -19,6 +19,8 @@ public final class Constants {
 
     public static final String EXTRA_NO = PACKAGE_NAME + ".NO";
 
+    public static final String EXTRA_CTRL_VALUE = PACKAGE_NAME + ".CTRL_VALUE";
+
     //RESULT CODES
 
     public static final int SUCCESS_RESULT = 0;
