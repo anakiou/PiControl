@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright $todat.year . Anargyros Kiourkos.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~          http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and limitations under the License.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- INPUT 0 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/output_0_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_grey_led" />
+
+        <TextView
+            android:id="@+id/output_0_name_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="output_0_name"/>
+
+    </LinearLayout>
+
+    <!-- INPUT 1 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/output_1_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_red_led" />
+
+        <TextView
+            android:id="@+id/output_1_name_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="output_1_name"/>
+
+    </LinearLayout>
+
+    <!-- INPUT 2 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/output_2_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_grey_led" />
+
+        <TextView
+            android:id="@+id/output_2_name_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="output_2_name"/>
+
+    </LinearLayout>
+
+    <!-- INPUT 3 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/output_3_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_red_led" />
+
+        <TextView
+            android:id="@+id/output_3_name_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="output_3_name"/>
+
+    </LinearLayout>
+
+    <!-- INPUT 4 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/output_4_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_grey_led" />
+
+        <TextView
+            android:id="@+id/output_4_name_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="output_4_name"/>
+
+    </LinearLayout>
+
+    <!-- INPUT 5 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/output_5_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_red_led" />
+
+        <TextView
+            android:id="@+id/output_5_name_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="output_5_name"/>
+
+    </LinearLayout>
+
+    <!-- INPUT 6 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/output_6_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_grey_led" />
+
+        <Switch
+            android:text="ToggleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sw"
+            android:layout_weight="1"
+            android:checked="true" />
+
+    </LinearLayout>
+
+    <!-- INPUT 7 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/output_7_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_led_blue" />
+
+
+        <ToggleButton
+            android:text="ToggleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toggleButton"
+            android:layout_weight="1"
+            android:checked="true" />
+
+    </LinearLayout>
+
+</LinearLayout>
