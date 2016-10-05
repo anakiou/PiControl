@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
-import anakiou.com.picontrol.ui.fragments.EditNamesFragment;
 import anakiou.com.picontrol.ui.fragments.OutputsFragment;
 
 public class OutputsActivity  extends SingleFragmentActivity {

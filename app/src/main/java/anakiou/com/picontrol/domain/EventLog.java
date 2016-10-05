@@ -2,23 +2,15 @@ package anakiou.com.picontrol.domain;
 
 public class EventLog {
 
-    private Long id;
-
     private String msg;
 
-    private Boolean outputValue;
+    private String ioName;
 
-    private Integer pinNumber;
+    private Integer ioValue;
+
+    private Integer ioNumber;
 
     private Long dateCreated;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getMsg() {
         return msg;
@@ -28,20 +20,28 @@ public class EventLog {
         this.msg = msg;
     }
 
-    public Boolean getOutputValue() {
-        return outputValue;
+    public String getIoName() {
+        return ioName;
     }
 
-    public void setOutputValue(Boolean outputValue) {
-        this.outputValue = outputValue;
+    public void setIoName(String ioName) {
+        this.ioName = ioName;
     }
 
-    public Integer getPinNumber() {
-        return pinNumber;
+    public Integer getIoValue() {
+        return ioValue;
     }
 
-    public void setPinNumber(Integer pinNumber) {
-        this.pinNumber = pinNumber;
+    public void setIoValue(Integer ioValue) {
+        this.ioValue = ioValue;
+    }
+
+    public Integer getIoNumber() {
+        return ioNumber;
+    }
+
+    public void setIoNumber(Integer ioNumber) {
+        this.ioNumber = ioNumber;
     }
 
     public Long getDateCreated() {
