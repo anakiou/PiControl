@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import anakiou.com.picontrol.R;
+import anakiou.com.picontrol.service.InputIntentService;
 import anakiou.com.picontrol.service.NetworkService;
+import anakiou.com.picontrol.service.OutputIntentService;
 import anakiou.com.picontrol.ui.activities.EditNamesActivity;
 import anakiou.com.picontrol.ui.activities.InputsActivity;
 import anakiou.com.picontrol.ui.activities.OutputsActivity;
@@ -53,10 +55,14 @@ public class MainMenuFragment extends Fragment {
             @Override
             public void onRefresh() {
 
-                // Intent intent = InputIntentService.newIntent(getActivity(), Constants.INPUT_STATUS_REFRESH, 0, false);
-                // intent.putExtra(Constants.RECEIVER, mainMenuRefreshResultReceiver);
-                // getActivity().startService(intent);
+                Intent inputIntent = InputIntentService.newRefreshIntent(getContext());
+                Intent outputIntent = OutputIntentService.newRefreshIntent(getContext());
 
+                inputIntent.putExtra(Constants.RECEIVER, mainMenuRefreshResultReceiver);
+                outputIntent.putExtra(Constants.RECEIVER, mainMenuRefreshResultReceiver);
+
+                getActivity().startService(inputIntent);
+                getActivity().startService(outputIntent);
             }
         });
 
