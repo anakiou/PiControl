@@ -1,15 +1,34 @@
+/*
+ * Copyright 2016 . Anargyros Kiourkos.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *          http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and limitations under the License.
+ */
+
 package anakiou.com.picontrol.ui.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.os.ResultReceiver;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,6 +41,7 @@ import anakiou.com.picontrol.dao.InputDAO;
 import anakiou.com.picontrol.domain.Input;
 import anakiou.com.picontrol.service.InputIntentService;
 import anakiou.com.picontrol.service.NetworkService;
+import anakiou.com.picontrol.ui.activities.SettingsActivity;
 import anakiou.com.picontrol.util.Constants;
 
 public class InputsFragment extends Fragment {
@@ -70,6 +90,10 @@ public class InputsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        int refreshInterval = Integer.parseInt(sharedPref.getString(Constants.SET_REFRESH_INTERVAL, "5000"));
+
         networkService = NetworkService.get(getActivity().getApplicationContext());
 
         inputDAO = InputDAO.get(getActivity().getApplicationContext());
@@ -78,7 +102,7 @@ public class InputsFragment extends Fragment {
 
         refreshHandler = new Handler();
 
-        runnable = new InputsStatusRefreshRunnable();
+        runnable = new InputsStatusRefreshRunnable(refreshInterval);
 
         refreshHandler.postDelayed(runnable, 0000);
     }
@@ -106,10 +130,27 @@ public class InputsFragment extends Fragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
 
         refreshHandler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_settings, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_settings:
+                Intent i = new Intent(getContext(), SettingsActivity.class);
+                startActivity(i);
+                break;
+        }
+        return true;
     }
 
     private void refreshFromServer() {
@@ -239,15 +280,22 @@ public class InputsFragment extends Fragment {
                 updateUI();
             }
 
-            if(viewOk && resultCode == Constants.FAILURE_RESULT){
+            if (viewOk && resultCode == Constants.FAILURE_RESULT) {
                 Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG).show();
             }
         }
     }
 
-    class InputsStatusRefreshRunnable implements Runnable{
+    class InputsStatusRefreshRunnable implements Runnable {
+
+        private int refreshInterval;
+
+        InputsStatusRefreshRunnable(int refreshInterval) {
+            this.refreshInterval = refreshInterval;
+        }
+
         public void run() {
-            refreshHandler.postDelayed(this, 5000);
+            refreshHandler.postDelayed(this, refreshInterval);
             refreshFromServer();
         }
     }

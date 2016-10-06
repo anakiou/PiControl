@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2016 . Anargyros Kiourkos.
   ~
@@ -12,13 +13,12 @@
   ~ See the License for the specific language governing permissions and limitations under the License.
   -->
 
-<resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="map_inset_margin">100dp</dimen>
-    <dimen name="tab_max_width">264dp</dimen>
-    <dimen name="tab_padding_bottom">16dp</dimen>
-    <dimen name="tab_label">14sp</dimen>
-    <dimen name="custom_tab_layout_height">72dp</dimen>
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+
+</menu>

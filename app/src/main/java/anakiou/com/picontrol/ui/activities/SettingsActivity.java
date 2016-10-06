@@ -12,11 +12,20 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package anakiou.com.picontrol.ui.fragments;
+package anakiou.com.picontrol.ui.activities;
 
-import android.support.v4.app.Fragment;
+import android.app.Activity;
+import android.os.Bundle;
 
-public class EditNamesFragment extends Fragment {
+import anakiou.com.picontrol.ui.fragments.SettingsFragment;
 
+public class SettingsActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new SettingsFragment())
+                .commit();
+    }
 }
