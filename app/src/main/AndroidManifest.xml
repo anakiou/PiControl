@@ -67,5 +67,9 @@
         android:label="@string/edit_names"
         android:parentActivityName="anakiou.com.picontrol.ui.activities.MainMenuActivity" />
 
+        <activity
+            android:name="anakiou.com.picontrol.ui.activities.SettingsActivity"
+            android:label="@string/settings"/>
+
     </application>
 </manifest>
