@@ -61,6 +61,10 @@ public class InputsFragment extends Fragment {
 
     private InputDAO inputDAO;
 
+    private Handler refreshHandler;
+
+    private InputsStatusRefreshRunnable runnable;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,12 @@ public class InputsFragment extends Fragment {
         inputDAO = InputDAO.get(getActivity().getApplicationContext());
 
         inputsRefreshResultReceiver = new InputsRefreshResultReceiver(new Handler());
+
+        refreshHandler = new Handler();
+
+        runnable = new InputsStatusRefreshRunnable();
+
+        refreshHandler.postDelayed(runnable, 0000);
     }
 
     @Override
@@ -93,6 +103,13 @@ public class InputsFragment extends Fragment {
         updateUI();
 
         return view;
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+        refreshHandler.removeCallbacks(runnable);
     }
 
     private void refreshFromServer() {
@@ -185,9 +202,9 @@ public class InputsFragment extends Fragment {
     private Drawable getDrawableForStatus(int status) {
         switch (status) {
             case 0:
-                return getResources().getDrawable(R.drawable.ic_led_blue);
-            case 1:
                 return getResources().getDrawable(R.drawable.ic_led_red);
+            case 1:
+                return getResources().getDrawable(R.drawable.ic_led_blue);
             default:
                 return getResources().getDrawable(R.drawable.ic_led_grey);
         }
@@ -196,9 +213,9 @@ public class InputsFragment extends Fragment {
     private String getStringForStatus(int status) {
         switch (status) {
             case 0:
-                return getString(R.string.inactive);
-            case 1:
                 return getString(R.string.active);
+            case 1:
+                return getString(R.string.inactive);
             default:
                 return getString(R.string.unknown);
         }
@@ -216,12 +233,22 @@ public class InputsFragment extends Fragment {
 
             final String msg = resultData.getString(Constants.RESULT_DATA_KEY);
 
-            int msgLength = resultCode == Constants.SUCCESS_RESULT ? Snackbar.LENGTH_SHORT : Snackbar.LENGTH_LONG;
+            boolean viewOk = getView() != null;
 
-            if (getView() != null) {
+            if (viewOk) {
                 updateUI();
-                Snackbar.make(getView(), msg, msgLength).show();
             }
+
+            if(viewOk && resultCode == Constants.FAILURE_RESULT){
+                Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    class InputsStatusRefreshRunnable implements Runnable{
+        public void run() {
+            refreshHandler.postDelayed(this, 5000);
+            refreshFromServer();
         }
     }
 }

@@ -5,7 +5,7 @@ public final class Constants {
 
     private static final String PACKAGE_NAME = "com.anakiou.picontrol";
 
-    public static final String API_BASE_URL = "http://192.168.1.18:8080";
+    public static final String API_BASE_URL = "http://192.168.1.2:8080";
 
     public static final int OK_200 = 200;
 

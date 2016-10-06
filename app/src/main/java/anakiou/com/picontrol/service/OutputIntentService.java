@@ -4,7 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.ResultReceiver;
+import android.support.v4.os.ResultReceiver;
 
 import java.util.List;
 
@@ -135,9 +135,19 @@ public class OutputIntentService extends IntentService {
 
     private void handleStatusAllGet() {
 
+        if (outputDAO.count() == 0) {
+            handleGet();
+        }
+
         List<Integer> statuses = outputService.getAllOutputsStatus();
 
-        if (statuses.isEmpty()) {
+        if (statuses.isEmpty() || outputDAO.count() == 0) {
+
+            for (Output out : outputDAO.findAll()) {
+                out.setOutputStatus(-1);
+                outputDAO.update(out);
+            }
+
             deliverResultToReceiver(Constants.FAILURE_RESULT, getString(R.string.failed_to_update_outputs));
             return;
         }

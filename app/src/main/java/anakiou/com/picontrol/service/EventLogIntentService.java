@@ -4,8 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.ResultReceiver;
-import android.provider.SyncStateContract;
+import android.support.v4.os.ResultReceiver;
 
 import java.util.List;
 

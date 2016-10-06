@@ -12,7 +12,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -63,6 +62,10 @@ public class OutputsFragment extends Fragment {
 
     private OutputDAO outputDAO;
 
+    private Handler refreshHandler;
+
+    private OutputsStatusRefreshRunnable runnable;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,12 @@ public class OutputsFragment extends Fragment {
         outputDAO = outputDAO.get(getActivity().getApplicationContext());
 
         outputsResultReceiver = new OutputsResultReceiver(new Handler());
+
+        refreshHandler = new Handler();
+
+        runnable = new OutputsStatusRefreshRunnable();
+
+        refreshHandler.postDelayed(runnable, 0000);
     }
 
     @Override
@@ -95,6 +104,13 @@ public class OutputsFragment extends Fragment {
         updateUI();
 
         return view;
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+        refreshHandler.removeCallbacks(runnable);
     }
 
     private void refreshFromServer() {
@@ -155,39 +171,51 @@ public class OutputsFragment extends Fragment {
 
     private void setupButtonEvents() {
 
-        CompoundButton.OnCheckedChangeListener listener = buildListener();
-        out0Btn.setOnCheckedChangeListener(listener);
-        out1Btn.setOnCheckedChangeListener(listener);
-        out2Btn.setOnCheckedChangeListener(listener);
-        out3Btn.setOnCheckedChangeListener(listener);
-        out4Btn.setOnCheckedChangeListener(listener);
-        out5Btn.setOnCheckedChangeListener(listener);
-        out6Btn.setOnCheckedChangeListener(listener);
-        out7Btn.setOnCheckedChangeListener(listener);
+        View.OnClickListener listener = buildListener();
+
+        out0Btn.setOnClickListener(listener);
+        out1Btn.setOnClickListener(listener);
+        out2Btn.setOnClickListener(listener);
+        out3Btn.setOnClickListener(listener);
+        out4Btn.setOnClickListener(listener);
+        out5Btn.setOnClickListener(listener);
+        out6Btn.setOnClickListener(listener);
+        out7Btn.setOnClickListener(listener);
     }
 
-    private CompoundButton.OnCheckedChangeListener buildListener() {
+    private View.OnClickListener buildListener() {
 
-        return new CompoundButton.OnCheckedChangeListener() {
+        return new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                switch (buttonView.getId()) {
+            public void onClick(View v) {
+
+                boolean isChecked = ((ToggleButton) v).isChecked();
+
+                switch (v.getId()) {
                     case R.id.output_0_button:
                         controlOutput(0, isChecked);
+                        break;
                     case R.id.output_1_button:
                         controlOutput(1, isChecked);
+                        break;
                     case R.id.output_2_button:
                         controlOutput(2, isChecked);
+                        break;
                     case R.id.output_3_button:
                         controlOutput(3, isChecked);
+                        break;
                     case R.id.output_4_button:
                         controlOutput(4, isChecked);
+                        break;
                     case R.id.output_5_button:
                         controlOutput(5, isChecked);
+                        break;
                     case R.id.output_6_button:
                         controlOutput(6, isChecked);
+                        break;
                     case R.id.output_7_button:
                         controlOutput(7, isChecked);
+                        break;
                 }
             }
         };
@@ -269,12 +297,22 @@ public class OutputsFragment extends Fragment {
 
             final String msg = resultData.getString(Constants.RESULT_DATA_KEY);
 
-            int msgLength = resultCode == Constants.SUCCESS_RESULT ? Snackbar.LENGTH_SHORT : Snackbar.LENGTH_LONG;
+            boolean viewOk = getView() != null;
 
-            if (getView() != null) {
+            if (viewOk) {
                 updateUI();
-                Snackbar.make(getView(), msg, msgLength).show();
             }
+
+            if (viewOk && resultCode == Constants.FAILURE_RESULT) {
+                Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    class OutputsStatusRefreshRunnable implements Runnable{
+        public void run() {
+            refreshHandler.postDelayed(this, 5000);
+            refreshFromServer();
         }
     }
 

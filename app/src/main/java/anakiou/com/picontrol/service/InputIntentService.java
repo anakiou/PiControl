@@ -4,7 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.ResultReceiver;
+import android.support.v4.os.ResultReceiver;
 
 import java.util.List;
 
@@ -113,9 +113,14 @@ public class InputIntentService extends IntentService {
     }
 
     private void handleStatusAllGet() {
+
+        if(inputDAO.count() == 0){
+            handleGet();
+        }
+
         List<Integer> statuses = inputService.getAllInputsStatus();
 
-        if (statuses.isEmpty()) {
+        if (statuses.isEmpty() || inputDAO.count() == 0) {
 
             for (Input in : inputDAO.findAll()) {
                 in.setInputStatus(-1);

@@ -15,7 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"></application>
+        android:theme="@style/AppTheme">
 
     <service
         android:name="anakiou.com.picontrol.service.InputIntentService"
@@ -52,4 +52,6 @@
         android:name="anakiou.com.picontrol.ui.activities.EditNamesActivity"
         android:label="@string/edit_names"
         android:parentActivityName="anakiou.com.picontrol.ui.activities.MainMenuActivity" />
+
+    </application>
 </manifest>

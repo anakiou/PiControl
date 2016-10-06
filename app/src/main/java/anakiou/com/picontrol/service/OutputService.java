@@ -44,7 +44,7 @@ public class OutputService extends BaseService {
 
             if (isResponseOk(response)) return response.body();
 
-        } catch (IOException e) {
+        } catch (IOException e ) {
             Log.e(TAG, "Error getting ALL OUTPUTS STATUS ", e);
         }
 
