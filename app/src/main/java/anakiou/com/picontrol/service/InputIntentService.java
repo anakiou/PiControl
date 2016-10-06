@@ -1,12 +1,14 @@
 package anakiou.com.picontrol.service;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 
 import java.util.List;
 
+import anakiou.com.picontrol.R;
 import anakiou.com.picontrol.dao.InputDAO;
 import anakiou.com.picontrol.domain.Input;
 import anakiou.com.picontrol.util.Constants;
@@ -22,6 +24,31 @@ public class InputIntentService extends IntentService {
     private InputService inputService;
 
     private InputDAO inputDAO;
+
+    public static Intent newGetAllIntent(Context context) {
+
+        Intent intent = new Intent(context, InputIntentService.class);
+        intent.putExtra(Constants.EXTRA_OPERATION_TYPE, Constants.OP_INPUT_GET);
+
+        return intent;
+    }
+
+    public static Intent newRefreshIntent(Context context) {
+
+        Intent intent = new Intent(context, InputIntentService.class);
+        intent.putExtra(Constants.EXTRA_OPERATION_TYPE, Constants.OP_INPUT_STATUS_ALL_GET);
+
+        return intent;
+    }
+
+    public static Intent newNameSetIntent(Context context, int no) {
+
+        Intent intent = new Intent(context, InputIntentService.class);
+        intent.putExtra(Constants.EXTRA_OPERATION_TYPE, Constants.OP_INPUT_NAME_SET);
+        intent.putExtra(Constants.EXTRA_NO, no);
+
+        return intent;
+    }
 
     public InputIntentService() {
         super(TAG);
@@ -45,7 +72,7 @@ public class InputIntentService extends IntentService {
 
         if (!networkService.isNetworkAvailableAndConnected()) {
 
-            deliverResultToReceiver(Constants.FAILURE_RESULT);
+            deliverResultToReceiver(Constants.FAILURE_RESULT, getString(R.string.network_required_msg));
 
             return;
         }
@@ -55,12 +82,6 @@ public class InputIntentService extends IntentService {
         switch (operationType) {
             case Constants.OP_INPUT_GET:
                 handleGet();
-                break;
-            case Constants.OP_INPUT_NAMES_GET:
-                handleNamesGet();
-                break;
-            case Constants.OP_INPUT_SINGLE_STATUS_GET:
-                handleSingleStatusGet(intent);
                 break;
             case Constants.OP_INPUT_STATUS_ALL_GET:
                 handleStatusAllGet();
@@ -76,7 +97,7 @@ public class InputIntentService extends IntentService {
         List<Input> inputsFromServer = inputService.getInputs();
 
         if (inputsFromServer.isEmpty()) {
-            deliverResultToReceiver(Constants.FAILURE_RESULT);
+            deliverResultToReceiver(Constants.FAILURE_RESULT, getString(R.string.failed_to_update_inputs));
             return;
         }
 
@@ -88,56 +109,20 @@ public class InputIntentService extends IntentService {
             inputDAO.add(in);
         }
 
-        deliverResultToReceiver(Constants.SUCCESS_RESULT);
-    }
-
-    private void handleNamesGet() {
-
-        List<String> names = inputService.getInputNames();
-
-        if (names.isEmpty()) {
-            deliverResultToReceiver(Constants.FAILURE_RESULT);
-            return;
-        }
-
-        List<Input> inputs = inputDAO.findAll();
-
-        for (int i = 0; i < 8; i++) {
-            Input in = inputs.get(i);
-            in.setName(names.get(i));
-            inputDAO.update(in);
-        }
-
-        deliverResultToReceiver(Constants.SUCCESS_RESULT);
-    }
-
-    private void handleSingleStatusGet(Intent intent) {
-
-        int no = intent.getIntExtra(Constants.EXTRA_NO, 0);
-
-        int sts = inputService.getSingleInputStatus(no);
-
-        if (sts == -1) {
-            deliverResultToReceiver(Constants.FAILURE_RESULT);
-            return;
-        }
-
-        for (Input in : inputDAO.findAll()) {
-            if (in.getInputNumber() == no) {
-                in.setInputStatus(sts);
-                inputDAO.update(in);
-                break;
-            }
-        }
-
-        deliverResultToReceiver(Constants.SUCCESS_RESULT);
+        deliverResultToReceiver(Constants.SUCCESS_RESULT, getString(R.string.updated));
     }
 
     private void handleStatusAllGet() {
         List<Integer> statuses = inputService.getAllInputsStatus();
 
         if (statuses.isEmpty()) {
-            deliverResultToReceiver(Constants.FAILURE_RESULT);
+
+            for (Input in : inputDAO.findAll()) {
+                in.setInputStatus(-1);
+                inputDAO.update(in);
+            }
+
+            deliverResultToReceiver(Constants.FAILURE_RESULT, getString(R.string.failed_to_update_inputs));
             return;
         }
 
@@ -149,7 +134,7 @@ public class InputIntentService extends IntentService {
             inputDAO.update(in);
         }
 
-        deliverResultToReceiver(Constants.SUCCESS_RESULT);
+        deliverResultToReceiver(Constants.SUCCESS_RESULT, getString(R.string.updated));
     }
 
     private void handleNameSet(Intent intent) {
@@ -161,18 +146,20 @@ public class InputIntentService extends IntentService {
                 String name = inputService.setInputName(no, in.getName());
 
                 if (name.equals(in.getName())) {
-                    deliverResultToReceiver(Constants.SUCCESS_RESULT);
+                    deliverResultToReceiver(Constants.SUCCESS_RESULT, getString(R.string.saved));
                 } else {
-                    deliverResultToReceiver(Constants.FAILURE_RESULT);
+                    deliverResultToReceiver(Constants.FAILURE_RESULT, getString(R.string.failed_to_set_name));
                 }
                 break;
             }
         }
     }
 
-    private void deliverResultToReceiver(int resultCode) {
+    private void deliverResultToReceiver(int resultCode, String msg) {
 
         Bundle bundle = new Bundle();
+
+        bundle.putString(Constants.RESULT_DATA_KEY, msg);
 
         if (receiver != null) {
             receiver.send(resultCode, bundle);

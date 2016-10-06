@@ -19,12 +19,6 @@ public interface PiserverApi {
     @GET("/api/input")
     Call<List<Input>> getInputs();
 
-    @GET("/api/input/names")
-    Call<List<String>> getInputNames();
-
-    @GET("/api/input/{no}")
-    Call<Integer> getSingleInputStatus(@Path("no") int inputNo);
-
     @GET("/api/input/status")
     Call<List<Integer>> getAllInputsStatus();
 
@@ -36,12 +30,6 @@ public interface PiserverApi {
 
     @GET("/api/output")
     Call<List<Output>> getOutputs();
-
-    @GET("/api/output/names")
-    Call<List<String>> getOutputNames();
-
-    @GET("/api/output/{no}")
-    Call<Integer> getSingleOutputStatus(@Path("no") int outputNo);
 
     @GET("/api/output/status")
     Call<List<Integer>> getAllOutputsStatus();

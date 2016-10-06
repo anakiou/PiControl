@@ -31,4 +31,8 @@ public class Output {
     public void setOutputStatus(Integer outputStatus) {
         this.outputStatus = outputStatus;
     }
+
+    public boolean getBoolStatus() {
+        return outputStatus != null && outputStatus > 0;
+    }
 }

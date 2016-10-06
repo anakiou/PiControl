@@ -25,7 +25,6 @@ public class OutputService extends BaseService {
     private OutputService() {
     }
 
-
     public List<Output> getOutputs() {
         try {
             Response<List<Output>> response = prepareApi().getOutputs().execute();
@@ -37,32 +36,6 @@ public class OutputService extends BaseService {
         }
 
         return Collections.emptyList();
-    }
-
-    public List<String> getOutputNames() {
-        try {
-            Response<List<String>> response = prepareApi().getOutputNames().execute();
-
-            if (isResponseOk(response)) return response.body();
-
-        } catch (IOException e) {
-            Log.e(TAG, "Error getting OUTPUT NAMES", e);
-        }
-
-        return Collections.emptyList();
-    }
-
-    public Integer getSingleOutputStatus(int outputNo) {
-        try {
-            Response<Integer> response = prepareApi().getSingleOutputStatus(outputNo).execute();
-
-            if (isResponseOk(response)) return response.body();
-
-        } catch (IOException e) {
-            Log.e(TAG, "Error getting SINGLE OUTPUT " + outputNo + " STATUS ", e);
-        }
-
-        return -1;
     }
 
     public List<Integer> getAllOutputsStatus() {

@@ -38,32 +38,6 @@ public class InputService extends BaseService {
         return Collections.emptyList();
     }
 
-    public List<String> getInputNames() {
-        try {
-            Response<List<String>> response = prepareApi().getInputNames().execute();
-
-            if (isResponseOk(response)) return response.body();
-
-        } catch (IOException e) {
-            Log.e(TAG, "Error getting INPUT NAMES", e);
-        }
-
-        return Collections.emptyList();
-    }
-
-    public Integer getSingleInputStatus(int inputNo) {
-        try {
-            Response<Integer> response = prepareApi().getSingleInputStatus(inputNo).execute();
-
-            if (isResponseOk(response)) return response.body();
-
-        } catch (IOException e) {
-            Log.e(TAG, "Error getting SINGLE INPUT " + inputNo + " STATUS ", e);
-        }
-
-        return -1;
-    }
-
     public List<Integer> getAllInputsStatus() {
         try {
             Response<List<Integer>> response = prepareApi().getAllInputsStatus().execute();

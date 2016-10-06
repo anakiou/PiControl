@@ -31,29 +31,21 @@ public final class Constants {
 
     public static final int OP_INPUT_GET = 0;
 
-    public static final int OP_INPUT_NAMES_GET = 1;
+    public static final int OP_INPUT_STATUS_ALL_GET = 1;
 
-    public static final int OP_INPUT_SINGLE_STATUS_GET = 2;
-
-    public static final int OP_INPUT_STATUS_ALL_GET = 3;
-
-    public static final int OP_INPUT_NAME_SET = 4;
+    public static final int OP_INPUT_NAME_SET = 2;
 
     // OUTPUTS OPERATION TYPES
 
     public static final int OP_OUTPUT_GET = 0;
 
-    public static final int OP_OUTPUT_NAMES_GET = 1;
+    public static final int OP_OUTPUT_STATUS_ALL_GET = 1;
 
-    public static final int OP_OUTPUT_SINGLE_STATUS_GET = 2;
+    public static final int OP_OUTPUT_NAME_SET = 2;
 
-    public static final int OP_OUTPUT_STATUS_ALL_GET = 3;
+    public static final int OP_OUTPUT_SINGLE_CONTROL = 3;
 
-    public static final int OP_OUTPUT_NAME_SET = 4;
-
-    public static final int OP_OUTPUT_SINGLE_CONTROL = 5;
-
-    public static final int OP_OUTPUT_CONTROL_ALL = 6;
+    public static final int OP_OUTPUT_CONTROL_ALL = 4;
 
     //EVENTS OPERATION TYPES
 
